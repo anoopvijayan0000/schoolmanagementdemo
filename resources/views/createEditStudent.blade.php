@@ -24,10 +24,14 @@
 
 @if(!isset($student->id))
 <form method = "post" action="addstudent">
+     @csrf
 @else
- <form method = "post" action="updatestudent">
+
+<form action="{{ url('updatestudent/'.$student->id) }}" method="POST">
+@csrf
+@method('PUT')
 @endif
-   @csrf
+  
     <div class="form-group">
         <label >Name</label>            
         <input type="text"  placeholder="Enter Name" name="name" value="@if(isset($student->id)){{$student->name}}@endif">

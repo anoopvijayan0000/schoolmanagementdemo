@@ -59,8 +59,12 @@ class MarksController extends Controller
 
         $id = $req->id;
         $student = Student::find($id);
-        //return View::make('createEditStudent')->with('student', $student);
-         return view('addEditMark',['student'=> $student,'studentlist'=>$this->getStudent(),'term'=>$this->getTerm(),'subject'=>$this->getSubject()]);
+
+       /* $result = Studentmarks::select('subject','term','total_mark')->where('id', 1)->get();*/
+
+       $result = Studentmarks::select('studentmarks.*','students.name')->join('students', 'students.id', '=', 'studentmarks.student_id')->where('studentmarks.student_id',  $id )->get();
+
+         return view('addEditMark',['editresult'=>$result,'student'=> $student,'studentlist'=>$this->getStudent(),'term'=>$this->getTerm(),'subject'=>$this->getSubject()]);
 
 
     }
@@ -74,6 +78,19 @@ class MarksController extends Controller
 
         $users = Student::select('id', 'name')->get();
         return $users;
+    }
+    function updateMark(Request $req)
+    {
+
+        $id = $req->id;
+        $marks = Studentmarks::find($id);
+        $marks->student_id = $req->student_id;
+        $marks->subject = $req->subject;
+        $marks->term = $req->term;
+        $marks->total_mark = $req->total_mark;
+        $marks->save();
+        return redirect()->back()->with('success', 'Updated!'); 
+
     }
 
 

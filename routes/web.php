@@ -21,12 +21,13 @@ Route::get('/', function () {
 
 Route::get('createstudent' , [StudentController::class,'createStudent']);
 Route::post('addstudent' , [StudentController::class,'addStundent']);
-Route::post('updatestudent' , [StudentController::class,'updateStudent']);
+Route::put('updatestudent/{id}' , [StudentController::class,'updateStudent']);
 Route::get('student-list' , [StudentController::class,'getStudentList']);
 Route::get('student-list-edit/{id}' , [StudentController::class,'editStudentList']);
 Route::get('student-list-delete/{id}', [StudentController::class, 'deleteStudent']);
 Route::get('createmark' , [MarksController::class,'createMark']);
 Route::post('addmark' , [MarksController::class,'addMark']);
+Route::put('updatemark/{id}' , [MarksController::class,'updateMark']);
 Route::get('mark-list' , [MarksController::class,'getMarkList']);
 
 Route::get('marklist-list-edit/{id}' , [MarksController::class,'editMarkList']);

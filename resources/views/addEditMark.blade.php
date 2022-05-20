@@ -1,6 +1,6 @@
 @include('menu')
 
-<h1>@if(!isset($student->id)) Add @else Edit @endif Marks</h1>
+<h1>@if(isset($editresult)&&count($editresult)>0) Edit @else Add @endif Marks</h1>
 
 @if(session()->has('success'))
     <div class="alert alert-success">
@@ -21,23 +21,84 @@
     </div>
 @endif
 
+@if(isset($editresult)&&count($editresult)>0)
+@foreach($editresult as $r=>$resultdata)
 
-@if(!isset($student->id))
-<form method = "post" action="addmark">
+<div style="border:1px solid #000; padding: 10px;">
+
+<form action="{{ url('updatemark/'.$resultdata->student_id) }}" method="POST">
+        @csrf
+        @method('PUT')
+    <div class="form-group">
+        
+        <label >Student</label>            
+        <select name="student_id">
+        @foreach($studentlist as $k=>$g)
+        @if($resultdata->student_id == $g->id)
+
+        <option selected value="{{$g->id}}">{{$g->name}}</option>
+        @else
+        <option value="{{$g->id}}">{{$g->name}}</option>
+        @endif
+        @endforeach
+    </select>
+    </div>
+    <br>
+    <br>
+   
+    <div class="form-group">
+        
+    <label >Subject</label>
+    <select name="subject">
+        @foreach($subject as $g)
+         @if($resultdata->subject == $g)
+        <option selected value="{{$g}}">{{$g}}</option>
+         @else
+        <option value="{{$g}}">{{$g}}</option>
+        @endif        
+        @endforeach
+    </select>
+       
+    </div>
+    <br>
+    <br>
+    <div class="form-group">
+        <label >Term</label>
+       <select name="term">
+        @foreach($term as $t)
+        @if($resultdata->term == $t)
+        <option selected value="{{$t}}">{{$t}}</option>
+         @else
+        <option value="{{$t}}">{{$t}}</option>
+        @endif 
+           
+        @endforeach
+    </select>
+       
+    </div>
+    <br>
+    <br>
+     <div class="form-group">
+        <label >Total mark</label>
+        <input type="text" placeholder="Enter Mark" name="total_mark" value="{{$resultdata->total_mark }}">
+       
+    </div>
+    <br>
+    <br>
+    <input type="hidden" name="id" value="{{$resultdata->id}}">
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
+ @endforeach
 @else
- <form method = "post" action="updatemark">
-@endif
+<form method = "post" action="addmark">
+
    @csrf
     <div class="form-group">
         <label >Student</label>            
         <select name="student_id">
         @foreach($studentlist as $k=>$g)
-        @if(isset($student->id) && $student->id == $k)
-
-        <option selected value="{{$g}}">{{$g}}</option>
-        @else
         <option value="{{$g->id}}">{{$g->name}}</option>
-        @endif
         @endforeach
     </select>
     </div>
@@ -70,38 +131,10 @@
      <div class="form-group">
         <label >Total mark</label>
         <input type="text" placeholder="Enter Mark" name="total_mark" value="">
-       
     </div>
     <br>
     <br>
-    <input type="hidden" name="id" value="@if(isset($student->id)){{$student->id}}@endif">
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
-
-<!-- <form action="addstudent" method="post">
-    @csrf
-    <label>Name</label>
-    <input type="text" name="name">
-    <br>
-    <br>
-    <label>Age</label>
-    <input type="text" name="age">
-    <br>
-    <br>
-    <label>Gender</label>
-    <input type="text" name="gender">
-    <br>
-    <br>
-    <label>Reporting Teacher</label>
-    <select name="reporting_teacher">
-        <option>T1</option>
-        <option>T2</option>
-        <option>T3</option>
-    </select>
-    <br>
-    <br>
-    <br>
-    <button type="submit">submit</button>
-
-</form> -->
+@endif

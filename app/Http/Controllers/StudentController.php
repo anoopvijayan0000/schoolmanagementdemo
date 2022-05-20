@@ -47,7 +47,7 @@ class StudentController extends Controller
         $id = $req->id;
         $student = Student::find($id);
         //return View::make('createEditStudent')->with('student', $student);
-         return view('editStudent',['student'=> $student,'teachers'=>$this->getTeacher(),'gender'=>$this->getGender()]);
+         return view('createEditStudent',['student'=> $student,'teachers'=>$this->getTeacher(),'gender'=>$this->getGender()]);
 
 
     }
