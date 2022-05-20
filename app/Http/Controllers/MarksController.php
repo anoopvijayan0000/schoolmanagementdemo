@@ -158,10 +158,15 @@ class MarksController extends Controller
 
                }
            }
+
+           foreach($subjectlist as $newsub)
+           {
+            $markData[$newsub]=$markdata[$newsub];
+           }
             
 
 
-           return array('mark'=>$markdata,'created'=>$created_at );
+           return array('mark'=>$markData,'created'=>$created_at );
            
     }
 
