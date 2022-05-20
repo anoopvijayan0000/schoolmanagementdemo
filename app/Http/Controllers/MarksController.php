@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Traits\StudentTrait;
 use App\Models\Student;
 use App\Models\Studentmarks;
+use Illuminate\Support\Facades\DB;
 //use View;
 
 class MarksController extends Controller
@@ -91,6 +92,77 @@ class MarksController extends Controller
         $marks->save();
         return redirect()->back()->with('success', 'Updated!'); 
 
+    }
+    public function getMarkListMain() {
+        
+        //$mstudent = Studentmarks::all();
+        
+       /*$mstudent = Studentmarks::select('SELECT `student_id`, `term`, sum(`total_mark`) as total,students.name FROM studentmarks  LEFT JOIN students ON studentmarks.student_id = students.id GROUP BY studentmarks.term, studentmarks.student_id')->get();*/
+
+       /*$mstudent = Studentmarks::select( Studentmarks::raw('SELECT `student_id`, `term`, sum(`total_mark`) as total,students.name FROM studentmarks  LEFT JOIN students ON studentmarks.student_id = students.id GROUP BY studentmarks.term, studentmarks.student_id') );
+     */
+       /*$data = [];
+       foreach($mstudent  as $val)
+       {
+        $data[$val->student_id][$val->term][] = array('total'=>$val->total_mark,'created_at'=>$val->created_at,'name'=>$this->getStudentName($val->student_id),'subject'=>$val->subject);
+       }*/
+
+      /* $mstudent = Studentmarks::select('SELECT `student_id`, `term`, sum(`total_mark`) as total,students.name FROM studentmarks  LEFT JOIN students ON studentmarks.student_id = students.id GROUP BY studentmarks.term, studentmarks.student_id')->get();
+*/
+       $mstudent = DB::table('studentmarks')
+            ->join('students', 'studentmarks.student_id', '=', 'students.id')
+            ->select('studentmarks.student_id','studentmarks.term','students.name', DB::raw('sum(total_mark) as sum'))
+            ->groupBy('studentmarks.term','studentmarks.student_id')
+            ->get();
+
+       foreach($mstudent as $val)
+       {
+        $mdata = $this->getMarkData($val->student_id ,$val->term);
+        //print_r($mdata);
+        //$mstudent['marks'] =$mdata;  
+
+
+        $newdata[] =array(
+            'name'=>$val->name,
+            'term'=>$val->term,
+            'marks'=>$mdata['mark'],
+            'created_at'=>$mdata['created'],
+            'student_id'=>$val->student_id,
+            'total'=>$val->sum
+
+
+
+        );
+       }
+        return view('markListMain',['student'=> $newdata]);
+    }
+
+    public function getMarkData($studentid,$term)
+    {
+        $markdata =[];
+        $matchThese = ['term' => $term, 'student_id' => $studentid];
+
+        $results = Studentmarks::where($matchThese)->get();
+        foreach($results as $val)
+           {
+            
+            $markdata[$val->subject] = $val->total_mark;
+            $created_at = $val->created_at;
+           }
+           $subjectlist = $this->getSubject();
+           foreach($subjectlist  as $sub)
+           {
+            if(!array_key_exists($sub,$markdata))
+               {
+                $markdata[$sub] = '';
+
+               }
+           }
+            
+
+
+           return array('mark'=>$markdata,'created'=>$created_at );
+           
     }
 
 

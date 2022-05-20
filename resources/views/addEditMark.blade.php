@@ -1,4 +1,6 @@
-@include('menu')
+@extends('layouts')
+@section('content')
+
 
 <h1>@if(isset($editresult)&&count($editresult)>0) Edit @else Add @endif Marks</h1>
 
@@ -138,3 +140,5 @@
 </form>
 
 @endif
+
+@stop

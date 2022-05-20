@@ -28,7 +28,7 @@ Route::get('student-list-delete/{id}', [StudentController::class, 'deleteStudent
 Route::get('createmark' , [MarksController::class,'createMark']);
 Route::post('addmark' , [MarksController::class,'addMark']);
 Route::put('updatemark/{id}' , [MarksController::class,'updateMark']);
-Route::get('mark-list' , [MarksController::class,'getMarkList']);
+Route::get('mark-list-main' , [MarksController::class,'getMarkListMain']);
 
 Route::get('marklist-list-edit/{id}' , [MarksController::class,'editMarkList']);
 Route::get('marklist-list-delete/{id}', [MarksController::class, 'deleteMarkList']);

@@ -1,4 +1,5 @@
-@include('menu')
+@extends('layouts')
+@section('content')
 @if(session()->has('success'))
     <div class="alert alert-success">
         {{ session()->get('success') }}
@@ -19,7 +20,7 @@
 @endif
 
 
-<table class="table table-inverse" border="1">
+<table class="table table-inverse" border="1" style="padding-left:5px;margin-top: 50px;border: 1px solid #000;">
             <thead>
                 <tr>
                     <th>Student ID</th>
@@ -43,5 +44,5 @@
                 @endforeach
             </tbody>
         </table>
-
+@stop
         

@@ -1,5 +1,5 @@
-@include('menu')
-
+@extends('layouts')
+@section('content')
 <h1>Edit Student</h1>
 
 @if(session()->has('success'))
@@ -80,3 +80,4 @@
     <input type="hidden" name="id" value="@if(isset($student->id)){{$student->id}}@endif"> 
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
+@stop

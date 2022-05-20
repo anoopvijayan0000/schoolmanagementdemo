@@ -1,4 +1,5 @@
-@include('menu')
+@extends('layouts')
+@section('content')
 <h1>Add Student</h1>
 
 @if(session()->has('success'))
@@ -84,30 +85,4 @@
     <button type="submit" class="btn btn-default">Submit</button>
 </form>
 
-
-<!-- <form action="addstudent" method="post">
-    @csrf
-    <label>Name</label>
-    <input type="text" name="name">
-    <br>
-    <br>
-    <label>Age</label>
-    <input type="text" name="age">
-    <br>
-    <br>
-    <label>Gender</label>
-    <input type="text" name="gender">
-    <br>
-    <br>
-    <label>Reporting Teacher</label>
-    <select name="reporting_teacher">
-        <option>T1</option>
-        <option>T2</option>
-        <option>T3</option>
-    </select>
-    <br>
-    <br>
-    <br>
-    <button type="submit">submit</button>
-
-</form> -->
+@stop

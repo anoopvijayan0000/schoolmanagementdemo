@@ -1,6 +1,6 @@
 
 
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0" style="max-height: 50px;position: absolute;">
       
             <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
 
@@ -20,7 +20,7 @@
                         <a href="{{ url('createmark') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Add Marks</a>||
                     </span>
                     <span style="padding:5px;10px;">
-                        <a href="{{ url('mark-list') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">View Marks</a>||
+                        <a href="{{ url('mark-list-main') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">View Marks</a>||
                     </span>
                   
             </div>
