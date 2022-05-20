@@ -28,4 +28,5 @@
 
        
     </div>
+    <h1 style="padding-left: 15px; position: relative;top:25px;">Student Management System</h1>
  

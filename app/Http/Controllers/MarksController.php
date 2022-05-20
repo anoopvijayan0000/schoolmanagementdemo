@@ -165,7 +165,6 @@ class MarksController extends Controller
            }
             
 
-
            return array('mark'=>$markData,'created'=>$created_at );
            
     }

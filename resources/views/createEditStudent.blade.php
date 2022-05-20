@@ -1,6 +1,6 @@
 @extends('layouts')
 @section('content')
-<h1>Add Student</h1>
+<h1>@if(!isset($student->id))Add @else Edit @endif Student </h1>
 
 @if(session()->has('success'))
     <div class="alert alert-success">
